@@ -10,11 +10,23 @@
 export default {
     data() {
         return {
-            articles: [{
-                id: 1, title: 'first'
-            }, {
-                id: 2, title: 'second'
-            }]
+            articles: []
+        }
+    },
+    mounted() {
+        this.getArticles();
+    },
+    methods: {
+        getArticles() {
+            fetch('http://reduxblog.herokuapp.com/api/posts?key=123', {
+        	    method: 'GET'
+            })
+            .then(response => response.json())
+            .then(responseJSON => {
+                this.articles = responseJSON;
+                return false;
+            })
+            .catch(error => console.error(error)); 
         }
     }
 }

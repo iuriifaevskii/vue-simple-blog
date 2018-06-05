@@ -8,8 +8,8 @@ import Home from './components/home/Home.vue';
 export const routes = [
     { path: '', component: Home },
     { path: '/article', component: ArticlePage, children: [
-        { path: '/', component: ArticlesList },
-        { path: '/:id', component: ArticleDetail },
-        { path: '/:id/edit', component: EditArticle }
+        { path: '', component: ArticlesList },
+        { path: ':id', component: ArticleDetail },
+        { path: ':id/edit', component: EditArticle }
     ] }
 ];

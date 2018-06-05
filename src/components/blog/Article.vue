@@ -1,6 +1,6 @@
 <template>
     <router-link tag='li' :to='link' class='list-group-item' style="cursor:pointer">
-        {{article.title}}
+        link: {{article.title}}
     </router-link>
 </template>
 

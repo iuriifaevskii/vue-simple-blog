@@ -1,7 +1,10 @@
 <template>
     <div>
-        Article Detail
-        <p>loaded ID: {{ id }}</p>
+        <p style='font-weight:bold'>Article Detail</p>
+        <p>id: {{ singleArticle.id }}</p>
+        <p>Title: {{ singleArticle.title }}</p>
+        <p>Categories: {{ singleArticle.categories }}</p>
+        <p>Content: {{ singleArticle.content }}</p>
     </div>
 </template>
 
@@ -9,12 +12,23 @@
 export default {
     data() {
         return {
-            id: this.$route.params.id
+            id: this.$route.params.id,
+            singleArticle: {},
         }
     },
-    watch: {
-        '$route'(to, from) {
-            this.id = to.params.id;
+    mounted() {
+        this.getSingleArticle();
+    },
+    methods: {
+        getSingleArticle() {
+            fetch(`http://reduxblog.herokuapp.com/api/posts/${this.id}`, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(responseJSON => {
+                this.singleArticle = responseJSON;
+            })
+            .catch(error => console.log(error));
         }
     }
 }

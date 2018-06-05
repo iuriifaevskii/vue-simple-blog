@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{articles}}
         <ul class="list-group" v-for='article in articles' :key="article.id">
             <single-article :article='article'></single-article>
         </ul>
