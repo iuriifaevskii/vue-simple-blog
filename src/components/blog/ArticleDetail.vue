@@ -4,7 +4,8 @@
         <p>id: {{ singleArticle.id }}</p>
         <p>Title: {{ singleArticle.title }}</p>
         <p>Categories: {{ singleArticle.categories }}</p>
-        <p>Content: {{ singleArticle.content }}</p>
+        <p>Content:</p>
+        <p style="white-space: pre">{{ singleArticle.content }}</p>
         <router-link :to="{ name: 'articleEdit', params: { id: id }}" tag='button' class='btn btn-primary'>Edit</router-link>
     </div>
 </template>

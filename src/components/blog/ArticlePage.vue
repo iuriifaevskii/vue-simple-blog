@@ -2,16 +2,27 @@
     <div>
         Article Page
         <hr>
-        <router-view :articles='articles'></router-view>
+        <div class="flex-container">
+            <div class="flex-row">
+                <router-view :articles='articles'></router-view>
+            </div>
+            <div class="flex-row">
+                <create-article-form></create-article-form>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+import CreateArticleForm from './CreateArticleForm.vue';
 export default {
     data() {
         return {
             articles: []
         }
+    },
+    components: {
+        'create-article-form': CreateArticleForm
     },
     mounted() {
         this.getArticles();
@@ -32,6 +43,14 @@ export default {
 }
 </script>
 
-<style lang="sass">
-
+<style>
+    .flex-container {
+        display: flex;
+    }
+    .flex-row:first-child {
+        flex: 3;
+    }
+    .flex-row:nth-child(2) {
+        flex: 1;
+    }
 </style>
