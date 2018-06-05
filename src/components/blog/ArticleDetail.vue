@@ -31,6 +31,13 @@ export default {
             })
             .catch(error => console.log(error));
         }
+    },
+    beforeRouteEnter(to, from, next) {
+        if (true) { // if user authentificated!
+            next();
+        } else { // else
+            next(false);
+        }
     }
 }
 </script>

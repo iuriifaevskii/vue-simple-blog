@@ -11,15 +11,16 @@ export default {
             type: Object
         }
     },
-    computed: {
-        link() {
-            return {
+    data() {
+        return {
+            link: {
                 name: 'articleDetail',
                 params: {
                     id: this.article.id
                 }
-            };
+            },
         }
+        
     }
 }
 </script>

@@ -16,7 +16,12 @@ export const routes = [
         'header-top': Header
     }, children: [
         { path: '', component: ArticlesList },
-        { path: ':id', component: ArticleDetail, name: 'articleDetail' },
+        { path: ':id', component: ArticleDetail, name: 'articleDetail', beforeEnter: (to, from, next) => {
+            console.log('inside route setup');
+            next();
+        }},
         { path: ':id/edit', component: EditArticle, name: 'articleEdit' }
-    ] }
+    ] },
+    { path: '/redirect-to-articles', redirect: { name: 'allArticles' }},
+    { path: '*', redirect: { name: 'routerHome' }}
 ];
