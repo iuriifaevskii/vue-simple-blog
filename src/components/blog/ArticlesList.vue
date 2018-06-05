@@ -3,7 +3,7 @@
         <ul class="list-group" v-for='article in articles' :key="article.id">
             <single-article :article='article'></single-article>
         </ul>
-        <button class="btn btn-primary" @click='navigateToHome'>Back to home</button>
+        <button class="btn btn-primary" @click='navigateToHome()'>Back to home</button>
     </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         navigateToHome() {
-            this.$router.push({path: '/'});
+            this.$router.push({name: 'routerHome'});
         }
     }
 }

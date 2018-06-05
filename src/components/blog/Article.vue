@@ -13,7 +13,12 @@ export default {
     },
     computed: {
         link() {
-            return `article/${this.article.id}`;
+            return {
+                name: 'articleDetail',
+                params: {
+                    id: this.article.id
+                }
+            };
         }
     }
 }
