@@ -34,7 +34,7 @@
         <div class="form-group">
             <button
                 class="btn btn-primary"
-                @click.prevent="createArticle">
+                @click.prevent="submit">
                     Create Article
             </button>
         </div>
@@ -59,8 +59,13 @@ export default {
         }
     },
     methods: {
-        createArticle() {
-            console.log(this.articleData)
+        submit() {
+            this.$emit('createArticle', this.articleData);
+            this.articleData = {
+                title: '',
+                contant: '',
+                selectedCategory: 'adventure'
+            }
         }
     }
 }

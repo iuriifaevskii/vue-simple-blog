@@ -4,16 +4,22 @@
         <hr>
         <div class="flex-container">
             <div class="flex-row">
-                <router-view :articles='articles'></router-view>
+                <router-view
+                    :articles='articles'
+                    :removeArticle='delArticle'
+                    >
+                </router-view>
             </div>
             <div class="flex-row">
-                <create-article-form></create-article-form>
+                <create-article-form
+                    @createArticle='newArticle'>
+                </create-article-form>
             </div>
         </div>
     </div>
 </template>
-
 <script>
+//@removeArticle='delArticle'>
 import CreateArticleForm from './CreateArticleForm.vue';
 export default {
     data() {
@@ -38,6 +44,38 @@ export default {
                 return false;
             })
             .catch(error => console.error(error)); 
+        },
+        newArticle(article) {
+            fetch('http://reduxblog.herokuapp.com/api/posts?key=123', {
+                method: 'POST',
+	    		headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(article)
+            })
+            .then(response => response.json())
+            .then(responseJSON => {
+                this.articles.unshift(responseJSON);
+                return false;
+            })
+            .catch(error => console.log(error))
+        },
+        delArticle(id) {
+            console.log('?',id)
+            fetch(`http://reduxblog.herokuapp.com/api/posts/${id}?key=123`, {
+                method: 'DELETE',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(responseJSON => {
+                this.articles = this.articles.filter(item => item.id !== id)
+                return false;
+            })
+            .catch(error => console.log(error))
         }
     }
 }

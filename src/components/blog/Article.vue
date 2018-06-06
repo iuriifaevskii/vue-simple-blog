@@ -1,6 +1,6 @@
 <template>
     <router-link tag='li' :to='link' class='list-group-item' style="cursor:pointer">
-        link: {{article.title}}
+        link: {{article.title}} <button @click.stop='remove' class="btn btn-danger">remove</button>
     </router-link>
 </template>
 
@@ -9,7 +9,8 @@ export default {
     props: {
         article: {
             type: Object
-        }
+        },
+        removeArticle: Function
     },
     data() {
         return {
@@ -21,6 +22,13 @@ export default {
             },
         }
         
+    },
+    methods: {
+        remove() {
+            console.log('remove', this.article.id)
+            this.removeArticle(this.article.id)
+            //this.$emit('removeArticle', this.article.id)
+        }
     }
 }
 </script>
