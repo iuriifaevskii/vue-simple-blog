@@ -54,13 +54,19 @@ export default {
             .catch(error => console.error(error)); 
         },
         newArticle(article) {
+            console.log('article:', article)
+            const newArticle = {
+                title: article.title,
+                content: article.content,
+                categories: article.selectedCategory
+            }
             fetch('http://reduxblog.herokuapp.com/api/posts?key=123', {
                 method: 'POST',
 	    		headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(article)
+                body: JSON.stringify(newArticle)
             })
             .then(response => response.json())
             .then(responseJSON => {

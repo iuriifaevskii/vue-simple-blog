@@ -11,12 +11,12 @@
                 v-model.lazy="articleData.title">
         </div>
         <div class="form-group">
-            <label for="contant">Contant</label>
+            <label for="content">Content</label>
             <textarea 
-                id="contant"
+                id="content"
                 rows="5"
                 class="form-control"
-                v-model.lazy="articleData.contant">
+                v-model.lazy="articleData.content">
             </textarea>
         </div>
         <div class="form-group">
@@ -32,6 +32,11 @@
             </select>
         </div>
         <div class="form-group">
+            <switch-control
+                @statusGet='getStatus'>
+            </switch-control>
+        </div>
+        <div class="form-group">
             <button
                 class="btn btn-primary"
                 @click.prevent="submit">
@@ -42,13 +47,15 @@
 </template>
 
 <script>
+import SwitchControl from '../common/SwitchControl.vue';
 export default {
     data() {
         return {
             articleData: {
                 title: '',
-                contant: '',
-                selectedCategory: 'adventure'
+                content: '',
+                selectedCategory: 'adventure',
+                status: true
             },
             categories: [
                 'adventure',
@@ -63,14 +70,18 @@ export default {
             this.$emit('createArticle', this.articleData);
             this.articleData = {
                 title: '',
-                contant: '',
-                selectedCategory: 'adventure'
+                content: '',
+                selectedCategory: 'adventure',
+                status: this.articleData.status
             }
+        },
+        getStatus(status) {
+            this.articleData.status = status
         }
+    },
+    components: {
+        'switch-control': SwitchControl
     }
 }
 </script>
 
-<style lang="sass">
-
-</style>
