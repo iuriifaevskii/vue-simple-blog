@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if='singleArticle && singleArticle.id'>
         <p style='font-weight:bold'>Article Detail</p>
         <p>id: {{ singleArticle.id }}</p>
         <p>Title: {{ singleArticle.title }}</p>
@@ -8,9 +8,14 @@
         <p style="white-space: pre">{{ singleArticle.content }}</p>
         <router-link :to="{ name: 'articleEdit', params: { id: id }}" tag='button' class='btn btn-primary'>Edit</router-link>
     </div>
+    <p v-else-if='singleArticle.error && singleArticle.error.match(/not found/i)'>No article!</p>
+    <div v-else>
+        <custom-spinner></custom-spinner>
+    </div>
 </template>
 
 <script>
+import Spinner from '../common/Spinner.vue';
 export default {
     data() {
         return {
@@ -19,15 +24,15 @@ export default {
         }
     },
     mounted() {
-        this.getSingleArticle();
+        this.getSingleArticle(this.id);
     },
     methods: {
-        getSingleArticle() {
-            fetch(`http://reduxblog.herokuapp.com/api/posts/${this.id}`, {
+        getSingleArticle(id) {
+            fetch(`http://reduxblog.herokuapp.com/api/posts/${id}`, {
                 method: 'GET'
             })
             .then(response => response.json())
-            .then(responseJSON => {
+            .then(responseJSON => {console.log(responseJSON)
                 this.singleArticle = responseJSON;
             })
             .catch(error => console.log(error));
@@ -39,6 +44,9 @@ export default {
         } else { // else
             next(false);
         }
+    },
+    components: {
+        'custom-spinner': Spinner
     }
 }
 </script>

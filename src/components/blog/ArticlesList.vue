@@ -1,10 +1,11 @@
 <template>
-    <div>
+    <div v-if='articles.length'>
         <ul class="list-group" v-for='article in articles' :key="article.id">
             <single-article :removeArticle='removeArticle' :article='article'></single-article>
         </ul>
         <button class="btn btn-primary" @click='navigateToHome()'>Back to home</button>
     </div>
+    <p v-else>No articles left!</p>
 </template>
 
 <script>

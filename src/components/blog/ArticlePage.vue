@@ -4,11 +4,14 @@
         <hr>
         <div class="flex-container">
             <div class="flex-row">
-                <router-view
+                <router-view v-if='!loading'
                     :articles='articles'
                     :removeArticle='delArticle'
                     >
                 </router-view>
+                <div v-else>
+                    <custom-spinner></custom-spinner>
+                </div>
             </div>
             <div class="flex-row">
                 <create-article-form
@@ -21,26 +24,31 @@
 <script>
 //@removeArticle='delArticle'>
 import CreateArticleForm from './CreateArticleForm.vue';
+import Spinner from '../common/Spinner.vue';
 export default {
     data() {
         return {
-            articles: []
+            articles: [],
+            loading: false
         }
     },
     components: {
-        'create-article-form': CreateArticleForm
+        'create-article-form': CreateArticleForm,
+        'custom-spinner': Spinner
     },
     mounted() {
         this.getArticles();
     },
     methods: {
         getArticles() {
+            this.loading = true;
             fetch('http://reduxblog.herokuapp.com/api/posts?key=123', {
         	    method: 'GET'
             })
             .then(response => response.json())
             .then(responseJSON => {
                 this.articles = responseJSON;
+                this.loading = false;
                 return false;
             })
             .catch(error => console.error(error)); 
@@ -62,7 +70,6 @@ export default {
             .catch(error => console.log(error))
         },
         delArticle(id) {
-            console.log('?',id)
             fetch(`http://reduxblog.herokuapp.com/api/posts/${id}?key=123`, {
                 method: 'DELETE',
                 headers: {
