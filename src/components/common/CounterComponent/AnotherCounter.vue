@@ -1,18 +1,22 @@
 <template>
     <div>
-        <button class="btn btn-primary" @click.prevent='increment'>increment</button>
-        <button class="btn btn-primary" @click.prevent='decrement'>decrement</button>
+        <button class="btn btn-primary" @click.prevent='asyncIncrement({by: 50, duration: 3000})'>increment</button>
+        <button class="btn btn-primary" @click.prevent='asyncIncrement({by: 100, duration: 3000})'>decrement</button>
     </div>
 </template>
 
 <script>
-    import {mapMutations} from 'vuex';
+    import {mapActions} from 'vuex';
+
     export default {
         methods: {
-            ...mapMutations([
-                'increment',
-                'decrement'
-            ])
+            ...mapActions([
+                'asyncIncrement',
+                'asyncDecrement',
+            ]),
+            // increment(by) { // or pass params in argument automaticly
+            //     this.$store.dispatch('increment', by)
+            // }
             //increment() {
             //    this.$store.commit('increment');
             //},
