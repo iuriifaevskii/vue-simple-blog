@@ -5,7 +5,7 @@
         <hr>
         <another-result></another-result>
         <another-counter></another-counter>
-        <input type="text" :value="value" @input="updateValue">
+        <input type="text" v-model="value">
         <p>{{value}}</p>
     </div>
 </template>
@@ -30,13 +30,15 @@ export default {
         //...mapActions([
         //    'updateValue'
         //])
-        updateValue(value) {
-            this.$store.dispatch('updateValue', event.target.value);
-        }
     },
     computed: {
-        value() {
-            return this.$store.getters.value;
+        value: {
+            get() {
+                return this.$store.getters.value;
+            },
+            set(value) {
+                this.$store.dispatch('updateValue', value);
+            }
         }
     }
 }
